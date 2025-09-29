@@ -1,0 +1,19 @@
+# API Keys
+*.key
+glm_api_key
+.env
+.env.local
+
+# Logs
+*.log
+
+# Backups
+backups/
+*.bak
+
+# OS Files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
