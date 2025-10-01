@@ -1,275 +1,204 @@
 # Claude Code - GLM Switcher 🚀
 
-> Seamlessly switch between GLM-4.5 (Z.AI) and Claude models in Claude Code - Save 85% on AI costs while maintaining frontier-level performance
+> Usa Claude Code con modelli GLM-4.6 o Claude nativi - Cambia al volo con comandi dedicati!
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GLM-4.5](https://img.shields.io/badge/GLM--4.5-Supported-green.svg)](https://z.ai)
-[![Claude](https://img.shields.io/badge/Claude-Compatible-blue.svg)](https://claude.ai)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![GLM-4.6](https://img.shields.io/badge/GLM--4.6-Supported-green.svg)](https://z.ai)
+[![Claude Sonnet 4.5](https://img.shields.io/badge/Claude%20Sonnet%204.5-Latest-blue.svg)](https://claude.ai)
 
-## 🎯 What is Claude Code - GLM Switcher?
+## 🎯 Cosa fa questo progetto?
 
-Claude Code - GLM Switcher is a powerful bash script that allows developers to seamlessly switch between **GLM-4.5** (China's most advanced open AI model) and **Claude's native models** within Claude Code environment. 
+Ti permette di usare **Claude Code** con:
+- **Modelli Claude originali** (Opus 4.1, Sonnet 4.5) tramite Anthropic API
+- **Modelli GLM** (GLM-4.6, GLM-4.5-Air) tramite Z.AI API - **RISPARMIA 85%!**
 
-### Why Use Claude Code - GLM Switcher?
-
-- **💰 85% Cost Reduction**: Use GLM-4.5 at $3/month instead of Claude at $20-200/month
-- **🚀 Frontier Performance**: GLM-4.5 ranks 3rd globally in comprehensive benchmarks
-- **🔄 Seamless Switching**: Change models with a single command
-- **🛡️ No Vendor Lock-in**: Use open models or proprietary ones as needed
-- **⚡ Zero Setup Time**: Get running in under 2 minutes
-
-## 📊 Cost Comparison
-
-| Plan | Claude Pro | Claude Max | GLM-4.5 | Savings |
-|------|------------|------------|---------|---------|
-| Monthly | $20 | $200 | $3 | 85-98% |
-| Annual | $240 | $2,400 | $36 | $204-2,364 |
-| API (per 1M tokens) | $15-75 | $15-75 | $0.60-2.20 | 90%+ |
-
-## 🎬 Quick Start
-
-### Prerequisites
-
-- Unix-based system (Linux, macOS, or WSL2 on Windows)
-- Node.js v20.0+
-- Claude Code installed (`npm install -g @claude/code`)
-
-### Installation
+### La Nuova Filosofia: Un Comando per Ogni Modello
 
 ```bash
-# 1. Clone this repository
-git clone https://github.com/yourusername/claude-code-glm-switcher.git
+claude         # Usa Claude Sonnet 4.5 / Opus 4.1 (Anthropic)
+claude-glm     # Usa GLM-4.6 (Z.AI)
+claude-glm-air # Usa GLM-4.5-Air Fast (Z.AI)
+```
+
+**Nessuno switch manuale!** Ogni comando lancia Claude Code con il modello giusto automaticamente.
+
+## 🚀 Installazione Rapida (2 minuti)
+
+### Prerequisiti
+- Linux, macOS, o WSL2 su Windows
+- Claude Code installato (`npm install -g @anthropic-ai/claude-code`)
+
+### Setup Automatico
+
+```bash
+# Clona il repository
+git clone https://github.com/Shor73/claude-code-glm-switcher.git
 cd claude-code-glm-switcher
 
-# 2. Make the script executable
-chmod +x claude-code-glm-switcher.sh
-
-# 3. Run the installer
+# Esegui l'installer
 ./install.sh
-
-# 4. Start the switcher
-claude-glm
 ```
 
-## 🔧 Manual Installation
+L'installer:
+1. Copia gli script nella directory `~/.claude/`
+2. Aggiunge gli alias al tuo `.bashrc`
+3. Configura tutto automaticamente
 
-If you prefer to set up manually:
+### Dopo l'installazione
 
 ```bash
-# 1. Create the claude config directory
-mkdir -p ~/.claude
-
-# 2. Copy the switcher script
-cp claude-code-glm-switcher.sh ~/.claude/
-chmod +x ~/.claude/claude-code-glm-switcher.sh
-
-# 3. Add alias to your shell config
-echo "alias claude-glm='~/.claude/claude-code-glm-switcher.sh'" >> ~/.bashrc
+# Ricarica il terminale
 source ~/.bashrc
 
-# 4. Get your Z.AI API key
-# Visit https://z.ai and create a free account
-# Generate an API key from the dashboard
-
-# 5. Run the switcher
-claude-glm
+# Ora puoi usare:
+claude         # Per modelli Anthropic
+claude-glm     # Per GLM-4.6
+claude-glm-air # Per GLM-4.5-Air
 ```
 
-## 📖 Usage
+## 📖 Come Funziona
 
-### Interactive Mode
+### Architettura Semplificata
 
-Simply run:
-```bash
-claude-glm
+Invece di modificare variabili d'ambiente globali, ogni comando usa il suo script dedicato:
+
+```
+claude-glm → launch-with-glm.sh → Setta variabili GLM → Lancia Claude Code
+claude → Nessuna variabile extra → Usa API Anthropic nativa
 ```
 
-You'll see a menu like this:
-```
-╔══════════════════════════════════════════╗
-║    Claude Code - GLM Switcher v2.0       ║
-╚══════════════════════════════════════════╝
+### I Tre Script Principali
 
-GLM-4.5 Models (Z.AI):
-  1) GLM-4.5 (Full - Best for complex tasks)
-  2) GLM-4.5-Air (Fast - Best for quick tasks)
+1. **`launch-with-glm.sh`**
+   - Setta: `ANTHROPIC_MODEL="glm-4.6"`
+   - API: `https://api.z.ai/api/anthropic`
+   - Ideale per: Coding complesso, analisi approfondite
 
-Claude Models (Anthropic):
-  3) Claude Opus 4.1 (Most capable)
-  4) Claude Sonnet 4.0 (Balanced)
+2. **`launch-with-glm-air.sh`**
+   - Setta: `ANTHROPIC_MODEL="glm-4.5-air"`
+   - API: `https://api.z.ai/api/anthropic`
+   - Ideale per: Ricerche veloci, file search, syntax check
 
-Select an option [0-4]:
-```
+3. **Claude nativo** (nessuno script)
+   - Usa i modelli Anthropic originali
+   - Nessuna configurazione extra
 
-### Quick Switch Commands
+## 💰 Perché Usare GLM?
 
-For faster switching, use these aliases:
+### Confronto Costi
 
-```bash
-# Switch to GLM-4.5
-use-glm
+| Servizio | Costo Mensile | Risparmio |
+|----------|--------------|-----------|
+| Claude Pro | $20 | - |
+| Claude Max | $200 | - |
+| **GLM-4.6 via Z.AI** | **$3** | **85-98%** |
 
-# Switch to Claude native
-use-claude
+### Prestazioni GLM-4.6
 
-# Check current configuration
-claude-status
-```
+- **Parametri**: 355B totali (32B attivi via MoE)
+- **Context**: 128K token
+- **Ranking**: #3 globalmente nei benchmark
+- **Specialità**: Eccellente in coding, tool use (90.6% success rate)
 
-## 🎨 Features
+## 🔧 Menu Opzionale (claude-switch)
 
-- **🔄 Seamless Model Switching**: Change between GLM and Claude models instantly
-- **💾 Automatic Backups**: Configuration automatically backed up before changes
-- **📊 Usage Statistics**: Track your model usage over time
-- **🔐 Secure API Key Storage**: Keys stored securely with proper permissions
-- **🎯 Smart Mode Detection**: Automatically selects thinking vs fast mode based on task
-- **📝 Detailed Logging**: All actions logged for troubleshooting
-- **🚀 Environment Management**: Handles all environment variables automatically
-
-## ⚙️ Configuration
-
-Claude Code - GLM Switcher creates/modifies these files:
-
-- `~/.claude/settings.json` - Main configuration file
-- `~/.env` - Environment variables
-- `~/.claude/glm_api_key` - Secure API key storage
-- `~/.claude/backups/` - Configuration backups
-- `~/.claude/switcher.log` - Activity log
-
-### Example Configuration
-
-```json
-{
-  "apiBaseUrl": "https://api.z.ai/api/anthropic",
-  "apiTimeout": 3000000,
-  "model": "glm-4.5",
-  "modelOverrides": {
-    "ANTHROPIC_MODEL": "glm-4.5",
-    "ANTHROPIC_SMALL_FAST_MODEL": "glm-4.5-air"
-  },
-  "features": {
-    "thinking_mode": true,
-    "web_search": true,
-    "file_operations": true
-  }
-}
-```
-
-## 🤖 About GLM-4.5
-
-GLM-4.5 is a state-of-the-art language model developed by Zhipu AI (Z.ai):
-
-- **355B total parameters** (32B active via MoE)
-- **Ranks #3 globally** across 12 comprehensive benchmarks
-- **90.6% tool-calling success rate**
-- **128K token context window**
-- **Open-weight under MIT license**
-
-### Benchmark Performance
-
-| Benchmark | GLM-4.5 | Claude 3.5 | GPT-4 |
-|-----------|---------|------------|-------|
-| MMLU-Pro | 84.6% | 86.2% | 85.8% |
-| Coding (SWE-bench) | 64.2% | 62.1% | 65.3% |
-| Tool Use (BFCL) | 90.6% | 89.5% | 91.2% |
-
-## 🛠️ Advanced Usage
-
-### Custom Workflows
-
-Create automated workflows combining both models:
+Se preferisci un menu interattivo, puoi ancora usare:
 
 ```bash
-# Use GLM for analysis, Claude for refinement
-./scripts/hybrid-workflow.sh
-
-# Batch processing with automatic model selection
-./scripts/batch-process.sh /path/to/files
+claude-switch
 ```
 
-### API Integration
+Questo mostra un menu per:
+- Switchare tra modelli
+- Vedere lo stato corrente
+- Gestire le configurazioni
 
-Use the configuration in your own tools:
+**MA NON È PIÙ NECESSARIO!** I nuovi comandi `claude-glm` e `claude` sono più diretti.
 
-```python
-import json
-import os
+## 🛠️ Configurazione Manuale
 
-# Load current configuration
-with open(os.path.expanduser("~/.claude/settings.json")) as f:
-    config = json.load(f)
+Se vuoi configurare manualmente:
 
-# Use appropriate endpoint
-api_url = config["apiBaseUrl"]
-model = config["model"]
-```
-
-## 📚 Documentation
-
-- [Full Documentation](./docs/README.md)
-- [API Reference](./docs/API.md)
-- [Troubleshooting Guide](./docs/TROUBLESHOOTING.md)
-- [Contributing Guidelines](./CONTRIBUTING.md)
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-### Development Setup
+### 1. Copia gli script
 
 ```bash
-# Fork and clone the repository
-git clone https://github.com/yourusername/claude-code-glm-switcher.git
-
-# Create a feature branch
-git checkout -b feature/amazing-feature
-
-# Make your changes and test
-./test.sh
-
-# Commit and push
-git commit -m "Add amazing feature"
-git push origin feature/amazing-feature
-
-# Open a Pull Request
+mkdir -p ~/.claude
+cp launch-with-glm.sh ~/.claude/
+cp launch-with-glm-air.sh ~/.claude/
+chmod +x ~/.claude/launch-*.sh
 ```
 
-## 📄 License
+### 2. Aggiungi gli alias
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```bash
+echo 'alias claude-glm="~/.claude/launch-with-glm.sh"' >> ~/.bashrc
+echo 'alias claude-glm-air="~/.claude/launch-with-glm-air.sh"' >> ~/.bashrc
+source ~/.bashrc
+```
 
-## 🙏 Acknowledgments
+### 3. Configura l'API Key di Z.AI
 
-- [Zhipu AI](https://z.ai) for creating GLM-4.5
-- [Anthropic](https://anthropic.com) for Claude Code
-- The open-source community for continuous feedback and improvements
+Modifica `launch-with-glm.sh` e inserisci la tua API key:
+```bash
+export ANTHROPIC_AUTH_TOKEN="tua-api-key-qui"
+```
 
-## 💬 Support
+Ottieni la key da: https://z.ai
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/claude-code-glm-switcher/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/claude-code-glm-switcher/discussions)
-- **Email**: your-email@example.com
+## 📊 Modelli Disponibili
 
-## 🚀 What's Next?
+### Via Anthropic (comando `claude`)
+- **Claude Opus 4.1** - Il più potente
+- **Claude Sonnet 4.5** - Bilanciato, ottimo per coding
 
-- [ ] GUI version for non-technical users
-- [ ] Support for more open models (Llama, Mistral, etc.)
-- [ ] Docker container for easy deployment
-- [ ] VS Code extension
-- [ ] Performance analytics dashboard
-- [ ] Automatic model selection based on task type
+### Via Z.AI (comandi `claude-glm*`)
+- **GLM-4.6** - Modello principale, eccellente per tutto
+- **GLM-4.5-Air** - Velocissimo, perfetto per task semplici
 
-## ⭐ Star History
+## 🎯 Quando Usare Cosa
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/claude-code-glm-switcher&type=Date)](https://star-history.com/#yourusername/claude-code-glm-switcher&Date)
+| Usa questo comando | Quando vuoi |
+|-------------------|-------------|
+| `claude` | Massima qualità, non ti interessa il costo |
+| `claude-glm` | Risparmiare 85% mantenendo qualità eccellente |
+| `claude-glm-air` | Risposte immediate per task semplici |
+
+## 🐛 Troubleshooting
+
+### "comando non trovato"
+```bash
+source ~/.bashrc  # Ricarica la configurazione
+```
+
+### "API key non valida"
+Modifica `~/.claude/launch-with-glm.sh` e inserisci la tua key Z.AI
+
+### Voglio cambiare modello GLM di default
+Modifica `ANTHROPIC_MODEL` in `~/.claude/launch-with-glm.sh`
+
+## 🤝 Contribuire
+
+PR benvenuti! Specialmente per:
+- Supporto per altri modelli open (Llama, Mistral)
+- GUI per configurazione
+- Integrazione VS Code
+
+## 📄 Licenza
+
+MIT - Vedi [LICENSE](LICENSE)
+
+## 🙏 Ringraziamenti
+
+- [Zhipu AI](https://z.ai) per GLM-4.6
+- [Anthropic](https://anthropic.com) per Claude Code
+- La community open source
+
+## ⭐ Supporta il Progetto
+
+Se questo progetto ti fa risparmiare soldi, considera di mettere una stella ⭐!
 
 ---
 
 <p align="center">
-  Made with ❤️ by developers, for developers
-</p>
-
-<p align="center">
-  If this project saves you money, consider starring ⭐ the repository!
+  <b>Risparmia. Switcha. Programma.</b>
 </p>
