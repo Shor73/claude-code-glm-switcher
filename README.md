@@ -1,125 +1,125 @@
 # Claude Code - GLM Switcher 🚀
 
-> Usa Claude Code con modelli GLM-4.6 o Claude nativi - Cambia al volo con comandi dedicati!
+> Use Claude Code with GLM-4.6 or native Claude models - Switch instantly with dedicated commands!
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GLM-4.6](https://img.shields.io/badge/GLM--4.6-Supported-green.svg)](https://z.ai)
 [![Claude Sonnet 4.5](https://img.shields.io/badge/Claude%20Sonnet%204.5-Latest-blue.svg)](https://claude.ai)
 
-## 🎯 Cosa fa questo progetto?
+## 🎯 What is this?
 
-Ti permette di usare **Claude Code** con:
-- **Modelli Claude originali** (Opus 4.1, Sonnet 4.5) tramite Anthropic API
-- **Modelli GLM** (GLM-4.6, GLM-4.5-Air) tramite Z.AI API - **RISPARMIA 85%!**
+This tool lets you use **Claude Code** with:
+- **Native Claude models** (Opus 4.1, Sonnet 4.5) via Anthropic API
+- **GLM models** (GLM-4.6, GLM-4.5-Air) via Z.AI API - **SAVE 85%!**
 
-### La Nuova Filosofia: Un Comando per Ogni Modello
+### The New Philosophy: One Command Per Model
 
 ```bash
-claude         # Usa Claude Sonnet 4.5 / Opus 4.1 (Anthropic)
-claude-glm     # Usa GLM-4.6 (Z.AI)
-claude-glm-air # Usa GLM-4.5-Air Fast (Z.AI)
+claude         # Use Claude Sonnet 4.5 / Opus 4.1 (Anthropic)
+claude-glm     # Use GLM-4.6 (Z.AI)
+claude-glm-air # Use GLM-4.5-Air Fast (Z.AI)
 ```
 
-**Nessuno switch manuale!** Ogni comando lancia Claude Code con il modello giusto automaticamente.
+**No manual switching!** Each command launches Claude Code with the right model automatically.
 
-## 🚀 Installazione Rapida (2 minuti)
+## 🚀 Quick Install (2 minutes)
 
-### Prerequisiti
-- Linux, macOS, o WSL2 su Windows
-- Claude Code installato (`npm install -g @anthropic-ai/claude-code`)
+### Prerequisites
+- Linux, macOS, or WSL2 on Windows
+- Claude Code installed (`npm install -g @anthropic-ai/claude-code`)
 
-### Setup Automatico
+### Automatic Setup
 
 ```bash
-# Clona il repository
+# Clone the repository
 git clone https://github.com/Shor73/claude-code-glm-switcher.git
 cd claude-code-glm-switcher
 
-# Esegui l'installer
+# Run the installer
 ./install.sh
 ```
 
-L'installer:
-1. Copia gli script nella directory `~/.claude/`
-2. Aggiunge gli alias al tuo `.bashrc`
-3. Configura tutto automaticamente
+The installer will:
+1. Copy scripts to `~/.claude/` directory
+2. Add aliases to your `.bashrc`
+3. Configure everything automatically
 
-### Dopo l'installazione
+### After Installation
 
 ```bash
-# Ricarica il terminale
+# Reload your terminal
 source ~/.bashrc
 
-# Ora puoi usare:
-claude         # Per modelli Anthropic
-claude-glm     # Per GLM-4.6
-claude-glm-air # Per GLM-4.5-Air
+# Now you can use:
+claude         # For Anthropic models
+claude-glm     # For GLM-4.6
+claude-glm-air # For GLM-4.5-Air
 ```
 
-## 📖 Come Funziona
+## 📖 How It Works
 
-### Architettura Semplificata
+### Simplified Architecture
 
-Invece di modificare variabili d'ambiente globali, ogni comando usa il suo script dedicato:
+Instead of modifying global environment variables, each command uses its own dedicated script:
 
 ```
-claude-glm → launch-with-glm.sh → Setta variabili GLM → Lancia Claude Code
-claude → Nessuna variabile extra → Usa API Anthropic nativa
+claude-glm → launch-with-glm.sh → Sets GLM variables → Launches Claude Code
+claude → No extra variables → Uses native Anthropic API
 ```
 
-### I Tre Script Principali
+### The Three Main Scripts
 
 1. **`launch-with-glm.sh`**
-   - Setta: `ANTHROPIC_MODEL="glm-4.6"`
+   - Sets: `ANTHROPIC_MODEL="glm-4.6"`
    - API: `https://api.z.ai/api/anthropic`
-   - Ideale per: Coding complesso, analisi approfondite
+   - Best for: Complex coding, deep analysis
 
 2. **`launch-with-glm-air.sh`**
-   - Setta: `ANTHROPIC_MODEL="glm-4.5-air"`
+   - Sets: `ANTHROPIC_MODEL="glm-4.5-air"`
    - API: `https://api.z.ai/api/anthropic`
-   - Ideale per: Ricerche veloci, file search, syntax check
+   - Best for: Quick searches, file search, syntax checks
 
-3. **Claude nativo** (nessuno script)
-   - Usa i modelli Anthropic originali
-   - Nessuna configurazione extra
+3. **Native Claude** (no script needed)
+   - Uses original Anthropic models
+   - No extra configuration
 
-## 💰 Perché Usare GLM?
+## 💰 Why Use GLM?
 
-### Confronto Costi
+### Cost Comparison
 
-| Servizio | Costo Mensile | Risparmio |
-|----------|--------------|-----------|
+| Service | Monthly Cost | Savings |
+|---------|--------------|---------|
 | Claude Pro | $20 | - |
 | Claude Max | $200 | - |
 | **GLM-4.6 via Z.AI** | **$3** | **85-98%** |
 
-### Prestazioni GLM-4.6
+### GLM-4.6 Performance
 
-- **Parametri**: 355B totali (32B attivi via MoE)
-- **Context**: 128K token
-- **Ranking**: #3 globalmente nei benchmark
-- **Specialità**: Eccellente in coding, tool use (90.6% success rate)
+- **Parameters**: 355B total (32B active via MoE)
+- **Context**: 128K tokens
+- **Ranking**: #3 globally in benchmarks
+- **Specialty**: Excellent at coding, tool use (90.6% success rate)
 
-## 🔧 Menu Opzionale (claude-switch)
+## 🔧 Optional Menu (claude-switch)
 
-Se preferisci un menu interattivo, puoi ancora usare:
+If you prefer an interactive menu, you can still use:
 
 ```bash
 claude-switch
 ```
 
-Questo mostra un menu per:
-- Switchare tra modelli
-- Vedere lo stato corrente
-- Gestire le configurazioni
+This shows a menu to:
+- Switch between models
+- View current status
+- Manage configurations
 
-**MA NON È PIÙ NECESSARIO!** I nuovi comandi `claude-glm` e `claude` sono più diretti.
+**BUT IT'S NOT NECESSARY!** The new `claude-glm` and `claude` commands are more direct.
 
-## 🛠️ Configurazione Manuale
+## 🛠️ Manual Configuration
 
-Se vuoi configurare manualmente:
+If you want to configure manually:
 
-### 1. Copia gli script
+### 1. Copy the scripts
 
 ```bash
 mkdir -p ~/.claude
@@ -128,7 +128,7 @@ cp launch-with-glm-air.sh ~/.claude/
 chmod +x ~/.claude/launch-*.sh
 ```
 
-### 2. Aggiungi gli alias
+### 2. Add aliases
 
 ```bash
 echo 'alias claude-glm="~/.claude/launch-with-glm.sh"' >> ~/.bashrc
@@ -136,69 +136,69 @@ echo 'alias claude-glm-air="~/.claude/launch-with-glm-air.sh"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### 3. Configura l'API Key di Z.AI
+### 3. Configure Z.AI API Key
 
-Modifica `launch-with-glm.sh` e inserisci la tua API key:
+Edit `launch-with-glm.sh` and insert your API key:
 ```bash
-export ANTHROPIC_AUTH_TOKEN="tua-api-key-qui"
+export ANTHROPIC_AUTH_TOKEN="your-api-key-here"
 ```
 
-Ottieni la key da: https://z.ai
+Get your key from: https://z.ai
 
-## 📊 Modelli Disponibili
+## 📊 Available Models
 
-### Via Anthropic (comando `claude`)
-- **Claude Opus 4.1** - Il più potente
-- **Claude Sonnet 4.5** - Bilanciato, ottimo per coding
+### Via Anthropic (command `claude`)
+- **Claude Opus 4.1** - Most powerful
+- **Claude Sonnet 4.5** - Balanced, great for coding
 
-### Via Z.AI (comandi `claude-glm*`)
-- **GLM-4.6** - Modello principale, eccellente per tutto
-- **GLM-4.5-Air** - Velocissimo, perfetto per task semplici
+### Via Z.AI (commands `claude-glm*`)
+- **GLM-4.6** - Main model, excellent for everything
+- **GLM-4.5-Air** - Lightning fast, perfect for simple tasks
 
-## 🎯 Quando Usare Cosa
+## 🎯 When to Use What
 
-| Usa questo comando | Quando vuoi |
-|-------------------|-------------|
-| `claude` | Massima qualità, non ti interessa il costo |
-| `claude-glm` | Risparmiare 85% mantenendo qualità eccellente |
-| `claude-glm-air` | Risposte immediate per task semplici |
+| Use this command | When you want |
+|------------------|---------------|
+| `claude` | Maximum quality, cost is not a concern |
+| `claude-glm` | Save 85% while maintaining excellent quality |
+| `claude-glm-air` | Instant responses for simple tasks |
 
 ## 🐛 Troubleshooting
 
-### "comando non trovato"
+### "command not found"
 ```bash
-source ~/.bashrc  # Ricarica la configurazione
+source ~/.bashrc  # Reload your shell configuration
 ```
 
-### "API key non valida"
-Modifica `~/.claude/launch-with-glm.sh` e inserisci la tua key Z.AI
+### "Invalid API key"
+Edit `~/.claude/launch-with-glm.sh` and insert your Z.AI key
 
-### Voglio cambiare modello GLM di default
-Modifica `ANTHROPIC_MODEL` in `~/.claude/launch-with-glm.sh`
+### Want to change default GLM model
+Modify `ANTHROPIC_MODEL` in `~/.claude/launch-with-glm.sh`
 
-## 🤝 Contribuire
+## 🤝 Contributing
 
-PR benvenuti! Specialmente per:
-- Supporto per altri modelli open (Llama, Mistral)
-- GUI per configurazione
-- Integrazione VS Code
+PRs welcome! Especially for:
+- Support for other open models (Llama, Mistral)
+- GUI for configuration
+- VS Code integration
 
-## 📄 Licenza
+## 📄 License
 
-MIT - Vedi [LICENSE](LICENSE)
+MIT - See [LICENSE](LICENSE)
 
-## 🙏 Ringraziamenti
+## 🙏 Acknowledgments
 
-- [Zhipu AI](https://z.ai) per GLM-4.6
-- [Anthropic](https://anthropic.com) per Claude Code
-- La community open source
+- [Zhipu AI](https://z.ai) for GLM-4.6
+- [Anthropic](https://anthropic.com) for Claude Code
+- The open source community
 
-## ⭐ Supporta il Progetto
+## ⭐ Support the Project
 
-Se questo progetto ti fa risparmiare soldi, considera di mettere una stella ⭐!
+If this project saves you money, consider giving it a star ⭐!
 
 ---
 
 <p align="center">
-  <b>Risparmia. Switcha. Programma.</b>
+  <b>Save. Switch. Code.</b>
 </p>
