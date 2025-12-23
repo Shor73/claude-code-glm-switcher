@@ -21,8 +21,8 @@ function show_menu() {
     echo -e "${BLUE}═══════════════════════════════════════════${NC}"
     echo
     echo -e "${YELLOW}Modelli GLM (Z.AI):${NC}"
-    echo "  1) GLM-4.6 (Dialog, Planning, Coding)"
-    echo "  2) GLM-4.5-Air (File Search, Syntax Check)"
+    echo "  1) GLM-4.7 (Opus/Sonnet - Dialog, Planning, Coding)"
+    echo "  2) GLM-4.5-Air (Haiku - Fast tasks, File Search)"
     echo
     echo -e "${YELLOW}Modelli Claude (Anthropic):${NC}"
     echo "  3) Claude Opus 4.1"
@@ -41,70 +41,81 @@ function show_menu() {
 
 function comment_bashrc_vars() {
     echo -e "${YELLOW}Disabilitando variabili GLM in .bashrc...${NC}"
-    
+
     # Backup
     cp "$BASHRC_FILE" "$BASHRC_FILE.bak.$(date +%Y%m%d_%H%M%S)"
-    
+
     # Commenta le variabili ANTHROPIC
     sed -i 's/^export ANTHROPIC_AUTH_TOKEN=/# export ANTHROPIC_AUTH_TOKEN=/' "$BASHRC_FILE"
-    sed -i 's/^export ANTHROPIC_MODEL=/# export ANTHROPIC_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^export ANTHROPIC_DEFAULT_OPUS_MODEL=/# export ANTHROPIC_DEFAULT_OPUS_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^export ANTHROPIC_DEFAULT_SONNET_MODEL=/# export ANTHROPIC_DEFAULT_SONNET_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^export ANTHROPIC_DEFAULT_HAIKU_MODEL=/# export ANTHROPIC_DEFAULT_HAIKU_MODEL=/' "$BASHRC_FILE"
     sed -i 's/^export ANTHROPIC_BASE_URL=/# export ANTHROPIC_BASE_URL=/' "$BASHRC_FILE"
-    sed -i 's/^export ANTHROPIC_SMALL_FAST_MODEL=/# export ANTHROPIC_SMALL_FAST_MODEL=/' "$BASHRC_FILE"
-    
+
     # Pulisci dalla sessione corrente
     unset ANTHROPIC_BASE_URL
-    unset ANTHROPIC_MODEL
-    unset ANTHROPIC_SMALL_FAST_MODEL
+    unset ANTHROPIC_DEFAULT_OPUS_MODEL
+    unset ANTHROPIC_DEFAULT_SONNET_MODEL
+    unset ANTHROPIC_DEFAULT_HAIKU_MODEL
     unset ANTHROPIC_AUTH_TOKEN
-    
+
     echo -e "${GREEN}✓ Variabili GLM disabilitate${NC}"
     echo -e "${YELLOW}Ricarica il terminale o esegui: source ~/.bashrc${NC}"
 }
 
 function uncomment_bashrc_vars() {
     echo -e "${YELLOW}Riabilitando variabili GLM in .bashrc...${NC}"
-    
+
     # Decommenta le variabili ANTHROPIC
     sed -i 's/^# export ANTHROPIC_AUTH_TOKEN=/export ANTHROPIC_AUTH_TOKEN=/' "$BASHRC_FILE"
-    sed -i 's/^# export ANTHROPIC_MODEL=/export ANTHROPIC_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^# export ANTHROPIC_DEFAULT_OPUS_MODEL=/export ANTHROPIC_DEFAULT_OPUS_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^# export ANTHROPIC_DEFAULT_SONNET_MODEL=/export ANTHROPIC_DEFAULT_SONNET_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^# export ANTHROPIC_DEFAULT_HAIKU_MODEL=/export ANTHROPIC_DEFAULT_HAIKU_MODEL=/' "$BASHRC_FILE"
     sed -i 's/^# export ANTHROPIC_BASE_URL=/export ANTHROPIC_BASE_URL=/' "$BASHRC_FILE"
-    sed -i 's/^# export ANTHROPIC_SMALL_FAST_MODEL=/export ANTHROPIC_SMALL_FAST_MODEL=/' "$BASHRC_FILE"
-    
+
     # Ricarica
     source "$BASHRC_FILE"
-    
+
     echo -e "${GREEN}✓ Variabili GLM riabilitate${NC}"
 }
 
 function switch_to_glm() {
     local model=$1
+    local model_id=$2
     echo -e "${YELLOW}Configurando per GLM model: $model${NC}"
-    
+
     # Decommenta le variabili nel .bashrc
     sed -i 's/^# export ANTHROPIC_AUTH_TOKEN=/export ANTHROPIC_AUTH_TOKEN=/' "$BASHRC_FILE"
-    sed -i 's/^# export ANTHROPIC_MODEL=/export ANTHROPIC_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^# export ANTHROPIC_DEFAULT_OPUS_MODEL=/export ANTHROPIC_DEFAULT_OPUS_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^# export ANTHROPIC_DEFAULT_SONNET_MODEL=/export ANTHROPIC_DEFAULT_SONNET_MODEL=/' "$BASHRC_FILE"
+    sed -i 's/^# export ANTHROPIC_DEFAULT_HAIKU_MODEL=/export ANTHROPIC_DEFAULT_HAIKU_MODEL=/' "$BASHRC_FILE"
     sed -i 's/^# export ANTHROPIC_BASE_URL=/export ANTHROPIC_BASE_URL=/' "$BASHRC_FILE"
-    sed -i 's/^# export ANTHROPIC_SMALL_FAST_MODEL=/export ANTHROPIC_SMALL_FAST_MODEL=/' "$BASHRC_FILE"
-    
+
     # IMPORTANTE: Esporta ANCHE nella sessione corrente
     export ANTHROPIC_AUTH_TOKEN="0617f0ac31984956b718230df9410e25.DTSvGQvXuyUiFOb1"
-    export ANTHROPIC_MODEL="glm-4.6"
+    export ANTHROPIC_DEFAULT_OPUS_MODEL="glm-4.7"
+    export ANTHROPIC_DEFAULT_SONNET_MODEL="glm-4.7"
+    export ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-4.5-air"
     export ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic"
-    export ANTHROPIC_SMALL_FAST_MODEL="glm-4.5-air"
-    
+
     # Aggiorna settings.json
     cat > "$SETTINGS_FILE" <<EOF
 {
   "apiBaseUrl": "https://api.z.ai/api/anthropic",
   "apiTimeout": 3000000,
   "model": "$model",
-  "ANTHROPIC_MODEL": "glm-4.6",
-  "ANTHROPIC_SMALL_FAST_MODEL": "glm-4.5-air"
+  "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-4.7",
+  "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.7",
+  "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.5-air"
 }
 EOF
-    
+
     echo -e "${GREEN}✓ Configurato per GLM $model${NC}"
     echo -e "${BLUE}API URL: https://api.z.ai/api/anthropic${NC}"
+    echo
+    echo -e "${YELLOW}Mapping:${NC}"
+    echo "  Opus/Sonnet → GLM-4.7"
+    echo "  Haiku → GLM-4.5-Air"
     echo
     echo -e "${YELLOW}IMPORTANTE:${NC}"
     echo "1. Esegui: ${GREEN}source ~/.bashrc${NC} per rendere permanente"
@@ -145,6 +156,7 @@ function show_detailed_status() {
     echo -e "${GREEN}   STATO DETTAGLIATO CONFIGURAZIONE${NC}"
     echo -e "${BLUE}═══════════════════════════════════════════${NC}"
     
+
     echo
     echo -e "${YELLOW}1. Variabili d'ambiente in sessione:${NC}"
     echo -n "   ANTHROPIC_BASE_URL: "
@@ -153,9 +165,21 @@ function show_detailed_status() {
     else
         echo -e "${GREEN}Non definita${NC}"
     fi
-    echo -n "   ANTHROPIC_MODEL: "
-    if [ -n "$ANTHROPIC_MODEL" ]; then
-        echo -e "${RED}$ANTHROPIC_MODEL${NC}"
+    echo -n "   ANTHROPIC_DEFAULT_OPUS_MODEL: "
+    if [ -n "$ANTHROPIC_DEFAULT_OPUS_MODEL" ]; then
+        echo -e "${RED}$ANTHROPIC_DEFAULT_OPUS_MODEL${NC}"
+    else
+        echo -e "${GREEN}Non definita${NC}"
+    fi
+    echo -n "   ANTHROPIC_DEFAULT_SONNET_MODEL: "
+    if [ -n "$ANTHROPIC_DEFAULT_SONNET_MODEL" ]; then
+        echo -e "${RED}$ANTHROPIC_DEFAULT_SONNET_MODEL${NC}"
+    else
+        echo -e "${GREEN}Non definita${NC}"
+    fi
+    echo -n "   ANTHROPIC_DEFAULT_HAIKU_MODEL: "
+    if [ -n "$ANTHROPIC_DEFAULT_HAIKU_MODEL" ]; then
+        echo -e "${RED}$ANTHROPIC_DEFAULT_HAIKU_MODEL${NC}"
     else
         echo -e "${GREEN}Non definita${NC}"
     fi
@@ -201,10 +225,10 @@ while true; do
     
     case $choice in
         1)
-            switch_to_glm "glm-4.6"
+            switch_to_glm "GLM-4.7" "glm-4.7"
             ;;
         2)
-            switch_to_glm "glm-4.5-air"
+            switch_to_glm "GLM-4.5-Air" "glm-4.5-air"
             ;;
         3)
             switch_to_claude "claude-opus-4-1-20250805" "Opus 4.1"

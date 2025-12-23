@@ -1,23 +1,27 @@
 # Claude Code - GLM Switcher 🚀
 
-> Use Claude Code with GLM-4.6 or native Claude models - Switch instantly with dedicated commands!
+> Use Claude Code with GLM-4.7 or native Claude models - Switch instantly with dedicated commands!
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GLM-4.6](https://img.shields.io/badge/GLM--4.6-Supported-green.svg)](https://z.ai)
+[![GLM-4.7](https://img.shields.io/badge/GLM--4.7-Supported-green.svg)](https://z.ai)
 [![Claude Sonnet 4.5](https://img.shields.io/badge/Claude%20Sonnet%204.5-Latest-blue.svg)](https://claude.ai)
 
 ## 🎯 What is this?
 
 This tool lets you use **Claude Code** with:
 - **Native Claude models** (Opus 4.1, Sonnet 4.5) via Anthropic API
-- **GLM models** (GLM-4.6, GLM-4.5-Air) via Z.AI API - **SAVE 85%!**
+- **GLM models** (GLM-4.7, GLM-4.5-Air) via Z.AI API - **SAVE 85%!**
+
+### Model Mapping
+- **GLM-4.7** → replaces Claude Opus & Sonnet (main coding/model)
+- **GLM-4.5-Air** → replaces Claude Haiku (fast model)
 
 ### The New Philosophy: One Command Per Model
 
 ```bash
 claude         # Use Claude Sonnet 4.5 / Opus 4.1 (Anthropic)
-claude-glm     # Use GLM-4.6 (Z.AI)
-claude-glm-air # Use GLM-4.5-Air Fast (Z.AI)
+claude-glm     # Use GLM-4.7 (Z.AI) - Opus/Sonnet replacement
+claude-glm-air # Use GLM-4.5-Air (Z.AI) - Haiku replacement
 ```
 
 **No manual switching!** Each command launches Claude Code with the right model automatically.
@@ -52,8 +56,8 @@ source ~/.bashrc
 
 # Now you can use:
 claude         # For Anthropic models
-claude-glm     # For GLM-4.6
-claude-glm-air # For GLM-4.5-Air
+claude-glm     # For GLM-4.7 (Opus/Sonnet replacement)
+claude-glm-air # For GLM-4.5-Air (Haiku replacement)
 ```
 
 ## 📖 How It Works
@@ -70,12 +74,12 @@ claude → No extra variables → Uses native Anthropic API
 ### The Three Main Scripts
 
 1. **`launch-with-glm.sh`**
-   - Sets: `ANTHROPIC_MODEL="glm-4.6"`
+   - Sets: `ANTHROPIC_DEFAULT_OPUS_MODEL="glm-4.7"`, `ANTHROPIC_DEFAULT_SONNET_MODEL="glm-4.7"`, `ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-4.5-air"`
    - API: `https://api.z.ai/api/anthropic`
    - Best for: Complex coding, deep analysis
 
 2. **`launch-with-glm-air.sh`**
-   - Sets: `ANTHROPIC_MODEL="glm-4.5-air"`
+   - Sets: Same as above (GLM-4.7 for Opus/Sonnet, GLM-4.5-Air for Haiku)
    - API: `https://api.z.ai/api/anthropic`
    - Best for: Quick searches, file search, syntax checks
 
@@ -91,14 +95,20 @@ claude → No extra variables → Uses native Anthropic API
 |---------|--------------|---------|
 | Claude Pro | $20 | - |
 | Claude Max | $200 | - |
-| **GLM-4.6 via Z.AI** | **$3** | **85-98%** |
+| **GLM-4.7 via Z.AI** | **$3** | **85-98%** |
 
-### GLM-4.6 Performance
+### GLM-4.7 Performance
 
-- **Parameters**: 355B total (32B active via MoE)
+- **Latest model** from Zhipu AI (replaces GLM-4.6)
 - **Context**: 128K tokens
-- **Ranking**: #3 globally in benchmarks
-- **Specialty**: Excellent at coding, tool use (90.6% success rate)
+- **Ranking**: Top-tier globally in benchmarks
+- **Specialty**: Excellent at coding, tool use, planning
+
+### GLM-4.5-Air Performance
+
+- **Fast model** optimized for quick tasks
+- **Perfect for**: File search, syntax checks, simple queries
+- **Cost-effective**: Ultra-low latency responses
 
 ## 🔧 Optional Menu (claude-switch)
 
@@ -152,7 +162,7 @@ Get your key from: https://z.ai
 - **Claude Sonnet 4.5** - Balanced, great for coding
 
 ### Via Z.AI (commands `claude-glm*`)
-- **GLM-4.6** - Main model, excellent for everything
+- **GLM-4.7** - Main model (replaces GLM-4.6), excellent for everything
 - **GLM-4.5-Air** - Lightning fast, perfect for simple tasks
 
 ## 🎯 When to Use What
@@ -189,7 +199,7 @@ MIT - See [LICENSE](LICENSE)
 
 ## 🙏 Acknowledgments
 
-- [Zhipu AI](https://z.ai) for GLM-4.6
+- [Zhipu AI](https://z.ai) for GLM-4.7 and GLM-4.5-Air
 - [Anthropic](https://anthropic.com) for Claude Code
 - The open source community
 
