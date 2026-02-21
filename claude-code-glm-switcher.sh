@@ -21,7 +21,7 @@ function show_menu() {
     echo -e "${BLUE}═══════════════════════════════════════════${NC}"
     echo
     echo -e "${YELLOW}Modelli GLM (Z.AI):${NC}"
-    echo "  1) GLM-4.7 (Opus/Sonnet - Dialog, Planning, Coding)"
+    echo "  1) GLM-5 (Opus/Sonnet - Dialog, Planning, Coding)"
     echo "  2) GLM-4.5-Air (Haiku - Fast tasks, File Search)"
     echo
     echo -e "${YELLOW}Modelli Claude (Anthropic):${NC}"
@@ -93,8 +93,8 @@ function switch_to_glm() {
 
     # IMPORTANTE: Esporta ANCHE nella sessione corrente
     export ANTHROPIC_AUTH_TOKEN="0617f0ac31984956b718230df9410e25.DTSvGQvXuyUiFOb1"
-    export ANTHROPIC_DEFAULT_OPUS_MODEL="glm-4.7"
-    export ANTHROPIC_DEFAULT_SONNET_MODEL="glm-4.7"
+    export ANTHROPIC_DEFAULT_OPUS_MODEL="glm-5"
+    export ANTHROPIC_DEFAULT_SONNET_MODEL="glm-5"
     export ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-4.5-air"
     export ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic"
 
@@ -104,8 +104,8 @@ function switch_to_glm() {
   "apiBaseUrl": "https://api.z.ai/api/anthropic",
   "apiTimeout": 3000000,
   "model": "$model",
-  "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-4.7",
-  "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.7",
+  "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5",
+  "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5",
   "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.5-air"
 }
 EOF
@@ -114,7 +114,7 @@ EOF
     echo -e "${BLUE}API URL: https://api.z.ai/api/anthropic${NC}"
     echo
     echo -e "${YELLOW}Mapping:${NC}"
-    echo "  Opus/Sonnet → GLM-4.7"
+    echo "  Opus/Sonnet → GLM-5"
     echo "  Haiku → GLM-4.5-Air"
     echo
     echo -e "${YELLOW}IMPORTANTE:${NC}"
@@ -225,7 +225,7 @@ while true; do
     
     case $choice in
         1)
-            switch_to_glm "GLM-4.7" "glm-4.7"
+            switch_to_glm "GLM-5" "glm-5"
             ;;
         2)
             switch_to_glm "GLM-4.5-Air" "glm-4.5-air"

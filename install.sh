@@ -92,7 +92,7 @@ cat >> "$SHELL_RC" << 'EOL'
 
 # Claude Code - GLM Switcher
 # Comandi diretti per ogni modello
-alias claude-glm='~/.claude/launch-with-glm.sh'        # GLM-4.7 (Opus/Sonnet)
+alias claude-glm='~/.claude/launch-with-glm.sh'        # GLM-5 (Opus/Sonnet)
 alias claude-glm-air='~/.claude/launch-with-glm-air.sh' # GLM-4.5-Air (Haiku fast)
 alias claude-switch='~/.claude/switch-model.sh'         # Menu interattivo (opzionale)
 EOL
@@ -133,7 +133,7 @@ echo
 echo -e "${CYAN}Comandi disponibili dopo aver ricaricato il terminale:${NC}"
 echo
 echo -e "  ${GREEN}claude${NC}         - Usa Claude Sonnet 4.5 / Opus 4.1 (Anthropic)"
-echo -e "  ${GREEN}claude-glm${NC}     - Usa GLM-4.7 (Z.AI) - Opus/Sonnet replacement"
+echo -e "  ${GREEN}claude-glm${NC}     - Usa GLM-5 (Z.AI) - Opus/Sonnet replacement"
 echo -e "  ${GREEN}claude-glm-air${NC} - Usa GLM-4.5-Air (Z.AI) - Haiku replacement"
 echo -e "  ${GREEN}claude-switch${NC}  - Menu interattivo (opzionale)"
 echo
